@@ -66,12 +66,7 @@ Main features in the code (`AC_MACHINES_PROJECT.ino`):
 - Blinks LED if thresholds are exceeded  
 - Serial prints real-time values
 
-```cpp
-if ((volt_rms1 >= voltage_threshold) || (current >= current_threshold)) {
-    digitalWrite(LED_Pin, HIGH); // Alert
-} else {
-    digitalWrite(LED_Pin, LOW);
-}
+
 
 
 ## 🔗 Future Work
@@ -82,3 +77,42 @@ Data logging to cloud/server
 Integration with mobile apps for remote alerts
 
 Enhanced PCB-based deployment
+
+
+          +--------------------------+
+          |   Single Phase Supply    |
+          +--------------------------+
+                     |
+                     v
+         +--------------------------+
+         |     Induction Motor      |
+         +--------------------------+
+           |       |         |
+           |       |         |
+           |       |         |
+           v       v         v
+    +-------------+  +-------------+  +------------------------+
+    | ZMPT101B    |  | ACS712      |  | Inductive Proximity   |
+    | Voltage     |  | Current     |  | Sensor (for RPM)      |
+    +-------------+  +-------------+  +------------------------+
+           \         /         |
+            \       /          |
+             v     v           v
+           +------------------------+
+           |        ESP32           |
+           | (Data Processing Unit) |
+           +------------------------+
+                     |
+                     v
+           +----------------+
+           |    LED Alert   |
+           +----------------+
+
+
+
+```cpp
+if ((volt_rms1 >= voltage_threshold) || (current >= current_threshold)) {
+    digitalWrite(LED_Pin, HIGH); // Alert
+} else {
+    digitalWrite(LED_Pin, LOW);
+}
